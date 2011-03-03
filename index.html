@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Prime Factor Visualizer</title>
+    <meta content="">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/jquery-1.5.1.min.js"></script>
+    <script src="js/model.js"></script>
+    <script>
+    /* model element types: (current prime = y axis)
+ * 0=Non-eliminated by current prime, and not prime
+ * 1=Eliminated (uniquely) by current prime 
+ * 2=Eliminated by current prime, but already eliminated by smaller prime
+ * 3=Prime, but not equal to current prime
+ * 4=Prime, equal to current prime
+ */
+    var tColors=['#FFFFFF','#DD0000','#FFCCCC','#EEEEEE','#000000'];
+    var c,cx,uw,uh,rX,rY,dBuffer,dCx;
+    var dorender=0;
+    $(document).ready(function() {
+     c=document.getElementById("display");
+     cx=c.getContext("2d");
+    dBuffer=document.createElement("canvas");
+    dBuffer.width=c.width;
+    dBuffer.height=c.height;
+    dCx=dBuffer.getContext("2d");
+     rX=0;
+     rY=0;
+     setInterval("document.getElementById('memDisp').innerHTML=primes.length+' primes in memory.';",250);
+ 
+    setTimeout("render();",10);
+});
+    function render() {
+    if (dorender == 0) {rX=0;rY=0;dorender=1;}
+    if (dorender == 1)
+    for (var i=0;i<500;i++){
+         uw=Math.ceil(c.width/numCount);
+     uh=Math.ceil(c.height/primeCount);
+      cx.fillStyle=tColors[model[rX][rY]];
+      cx.fillRect(Math.floor(rX*uw),Math.floor(rY*uh),uw,uh);
+      rX++;
+      if (rX>=numCount){rY++;rX=0;}
+      if (rY>=primeCount){rY=0;dorender=10;}
+      }
+      
+    setTimeout("render();",dorender*20);
+    }
+    </script>
+  </head>
+  <body>
+  <center>
+  <canvas class="theGrid" id="display" width="1200" height="500"></canvas>
+  </center>
+    <small id="memDisp">
+  0 primes in memory.
+  </small>
+
+  </body>
+  
+</html>

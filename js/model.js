@@ -1,7 +1,7 @@
 var primes=[2];
 
 var primeStart=0; //index of prime to start at
-var primeCount=26; //number of primes in model (Y axis)
+var primeCount=27; //number of primes in model (Y axis)
 var numStart=2; //number to start at
 var numCount=100; //number of integers to display (X axis)
 
